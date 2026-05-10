@@ -29,6 +29,7 @@ app.set("views" , path.join(__dirname , "views"));
 app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname , "/public")));
 
 //! creating useful shi
 
@@ -41,6 +42,12 @@ app.listen(port , () =>{
     console.log("app listening on port : ",port);
 });
 
+
+
+
+app.get("/" , (req,res) =>{
+    res.send("Hi! , I am root");
+});
 
 
 
@@ -84,7 +91,7 @@ app.get("/listings/:id/edit" , async (req, res) =>{
 app.put("/listings/:id", async (req, res) =>{
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id ,{... req.body.listing});
-    console.log("updated!");
+    console.log("updated list details!");
     res.redirect("/listings");
 });
 

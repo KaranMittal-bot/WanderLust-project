@@ -1,40 +1,66 @@
 <% layout("/layouts/boilerplate.ejs") %>
-<body>
-    <h3>
-        edit :
-    </h3>
 
-    <form method="POST" action="/listings/<%= listing._id %>?_method=PUT">
-        <label for="NewTitle">
-            title :
-        </label>
-        <input type="text" name="listing[title]" value="<%=listing.title %>">
+<div class="row">
+    <div class="col-8 offset-2">
+        <br><br>
+        <h3>
+            Edit your listing
+        </h3>
+<br><br>
+        <form method="POST" 
+        action="/listings/<%= listing._id %>?_method=PUT">
+
+            <div class="mb-3">
+                <label for="NewTitle" class="form-label">
+                    title :
+                </label>
+                <input type="text" name="listing[title]" value="<%=listing.title %>" class="form-control">
+            </div>
 <br>
-        <label for="NewDescription">
-            description :
-        </label>
-        <input type="text" name="listing[description]" value=" <%= listing.description %>">
+            <div class="mb-3">
+                <label for="NewDescription" class="form-label">
+                    description :
+                </label>
+                <textarea name="listing[description]"  
+                class="form-control"><%= listing.description %>
+                </textarea>
+            </div>
 <br>
-        <label for="NewImage">
-            image :
-        </label>
-        <input type="text" name="listing[image][url]" value="<%=listing.image.url%>">
+            <div class="mb-3">
+                <label for="NewImage" class="form-label">
+                    image link :
+                </label>
+                <input type="text" name="listing[image][url]" value="<%=listing.image.url%>" class="form-control">
+            </div>
 <br>
-        <label for="NewPrice">
-            Price :
-        </label>
-        <input type="number" name="listing[price]" value="<%=listing.price %>">
+            <div class="mb-3">
+                <label for="NewPrice" class="form-label">
+                    Price :
+                </label>
+                <input type="number" name="listing[price]" value="<%=listing.price %>" class="form-control">
+            </div>
 <br>
-        <label for="NewLocation">
-            Location :
-        </label>
-        <input type="text" name="listing[location]" value="<%=listing.location%>">
+            <div class="mb-3">
+                <label for="NewLocation" class="form-label">
+                    Location :
+                </label>
+                <input type="text" name="listing[location]" value="<%=listing.location%>" class="form-control">
+            </div>
 <br>
-        <label for="NewCountry">
-            country :
-        </label>
-        <input type="text" name="listing[country]" value="<%=listing.country %>">
+            <div class="mb-3">
+                <label for="NewCountry" class="form-label">
+                    country :
+                </label>
+                <input type="text" name="listing[country]" value="<%=listing.country %>" class="form-control">
+            </div>
 <br>
-        <button>Submit</button>
-    </form>
-</body>
+            <button class="btn btn-dark edit-btn">
+                Submit
+            </button>
+<br><br>
+        </form>
+    </div>
+</div>
+    
+
+<!--! added bootstrap classes for styling and clean UI -->

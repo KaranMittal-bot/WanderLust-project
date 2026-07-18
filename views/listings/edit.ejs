@@ -8,13 +8,17 @@
         </h3>
 <br><br>
         <form method="POST" 
-        action="/listings/<%= listing._id %>?_method=PUT">
+        action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
 
             <div class="mb-3">
                 <label for="NewTitle" class="form-label">
                     title :
                 </label>
-                <input type="text" name="listing[title]" value="<%=listing.title %>" class="form-control">
+                <input type="text" name="listing[title]" value="<%=listing.title %>" class="form-control" required>
+
+                <div class="invalid-feedback">
+                    Atleast keep it same as before🙏
+                </div>
             </div>
 <br>
             <div class="mb-3">
@@ -22,36 +26,56 @@
                     description :
                 </label>
                 <textarea name="listing[description]"  
-                class="form-control"><%= listing.description %>
+                class="form-control" required><%= listing.description %>
                 </textarea>
+
+                <div class="invalid-feedback">
+                    Come on, even 1 sentence would be useful for the customer
+                </div>
             </div>
 <br>
             <div class="mb-3">
                 <label for="NewImage" class="form-label">
                     image link :
                 </label>
-                <input type="text" name="listing[image][url]" value="<%=listing.image.url%>" class="form-control">
+                <input type="text" name="listing[image][url]" value="<%=listing.image.url%>" class="form-control" required>
+
+                <div class="invalid-feedback">
+                    Add the image
+                </div>
             </div>
 <br>
             <div class="mb-3">
                 <label for="NewPrice" class="form-label">
                     Price :
                 </label>
-                <input type="number" name="listing[price]" value="<%=listing.price %>" class="form-control">
+                <input type="number" name="listing[price]" value="<%=listing.price %>" class="form-control" required>
+
+                <div class="invalid-feedback">
+                    Free stays? Not on my watch. Enter a valid price.
+                </div>
             </div>
 <br>
             <div class="mb-3">
                 <label for="NewLocation" class="form-label">
                     Location :
                 </label>
-                <input type="text" name="listing[location]" value="<%=listing.location%>" class="form-control">
+                <input type="text" name="listing[location]" value="<%=listing.location%>" class="form-control" required>
+
+                <div class="invalid-feedback">
+                    Does it not exist anymore? 
+                </div>
             </div>
 <br>
             <div class="mb-3">
                 <label for="NewCountry" class="form-label">
                     country :
                 </label>
-                <input type="text" name="listing[country]" value="<%=listing.country %>" class="form-control">
+                <input type="text" name="listing[country]" value="<%=listing.country %>" class="form-control" required>
+
+                <div class="invalid-feedback">
+                    Every place exist in some country, where is yours?
+                </div>
             </div>
 <br>
             <button class="btn btn-dark edit-btn">
@@ -62,5 +86,6 @@
     </div>
 </div>
     
+<script src="/js/script.js"></script>
 
 <!--! added bootstrap classes for styling and clean UI -->

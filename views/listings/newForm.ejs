@@ -6,19 +6,35 @@
             Create New Listing
         </h3>
     <br>
-        <form method="POST" action="/listings">
+        <form method="POST" action="/listings" novalidate class="needs-validation">
             <div>
                 <label for="NewTitle" class="form-label">
-                    title :
+                    Title :
                 </label>
-                <input type="text" name="listing[title]" placeholder="Add a catchy title" class="form-control">
+                <input type="text" name="listing[title]" placeholder="Add a catchy title" class="form-control" required />
+
+                <div class="valid-feedback">
+                    Title Looks Good!
+                </div>
+
+                <div class="invalid-feedback">
+                    A place without a Title? Seems Off
+                </div>
             </div>
     <br>
             <div>
                 <label for="NewDescription" class="form-label">
                     description :
                 </label>
-                <textarea name="listing[description]" placeholder="Describe your atmosphere" class="form-control"></textarea>
+                <textarea name="listing[description]" placeholder="Describe your atmosphere" class="form-control" required></textarea>
+
+                <div class="valid-feedback">
+                    People will love this Description
+                </div>
+
+                <div class="invalid-feedback">
+                    Tell them something special about your place!
+                </div>
             </div>
             
     <br>
@@ -33,7 +49,11 @@
                 <label for="NewPrice" class="form-label">
                     Price :
                 </label>
-                <input type="number" name="listing[price]" placeholder="₹1500" class="form-control">
+                <input type="number" name="listing[price]" placeholder="1500" class="form-control" required>
+
+                <div class="invalid-feedback">
+                    Free stays? Not on my watch. Enter a valid price.
+                </div>
             </div>
             
     <br>
@@ -41,14 +61,22 @@
                 <label for="NewLocation" class="form-label">
                     Location :
                 </label>
-                <input type="text" name="listing[location]" placeholder="Dehradun, Uttrakhand" class="form-control">
+                <input type="text" name="listing[location]" placeholder="Dehradun, Uttrakhand" class="form-control" required>
+
+                <div class="invalid-feedback">
+                    A property with no address? Suspicious.
+                </div>
             </div>
     <br>
             <div>
                 <label for="NewCountry" class="form-label">
                     country :
                 </label>
-                <input type="text" name="listing[country]" placeholder="India" class="form-control">
+                <input type="text" name="listing[country]" placeholder="India" class="form-control" required>
+
+                <div class="invalid-feedback">
+                    Enter a country name. It's not that hard.
+                </div>
             </div>
     <br>
             <button class="btn btn-dark add-btn">Submit</button>

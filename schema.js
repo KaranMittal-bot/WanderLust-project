@@ -1,3 +1,5 @@
+//* this particulat file is to do the cient side validation of form submission
+
 const Joi = require('joi');
 
 module.exports.listingSchema = Joi.object({
@@ -9,4 +11,4 @@ module.exports.listingSchema = Joi.object({
         country : Joi.string().required(),
         image : Joi.string().allow("" , null)
     }).required()
-})
+});

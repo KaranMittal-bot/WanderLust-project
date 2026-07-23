@@ -5,6 +5,7 @@ const methodOverride = require("method-override");
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const Listing = require("./models/listing.js");
+const Review = require("./models/review.js");
 const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema } = require("./schema.js");
@@ -54,9 +55,7 @@ const validateListing = (req, res, next) =>{
     if(error){
         let errorMsg = err.detail.map((el) => el.message).join(" , ");
         throw new ExpressError(400, errorMsg);
-    }else{
-        next();
-    }
+    } 
 }
 
 
@@ -108,6 +107,17 @@ app.put("/listings/:id", validateListing , wrapAsync(async (req, res) =>{
 
 
 
+//! SHOW ROUTE
+
+app.get("/listings/:id" ,wrapAsync(async (req, res) =>{
+    let {id} = req.params;
+    const listing = await Listing.findById(id);
+    res.render("./listings/show.ejs" , {listing})
+}));
+
+
+
+
 
 //! delete route
 app.delete("/listings/:id" , wrapAsync(async (req, res) =>{
@@ -119,14 +129,34 @@ app.delete("/listings/:id" , wrapAsync(async (req, res) =>{
 
 
 
-//! SHOW ROUTE
 
-app.get("/listings/:id" ,wrapAsync(async (req, res) =>{
-    let {id} = req.params;
-    const listing = await Listing.findById(id);
-    res.render("./listings/show.ejs" , {listing})
-}));
 
+//! Reviews POST route
+app.post("/listings/:id/reviews" , async(req, res) =>{
+     let listing = await Listing.findById(req.params.id);
+     let newReview = new Review(req.body.review);
+
+     listing.reviews.push(newReview);
+
+     await newReview.save();
+     await listing.save();
+
+
+     console.log("New review saved");
+     res.send("New review saved!");
+});
+
+
+
+
+
+
+
+
+//! listening port
+app.listen(port , () =>{
+    console.log("app listening on port : ",port);
+});
 
 
 app.use((req, res, next) =>{
@@ -138,11 +168,4 @@ app.use((err,req, res, next) =>{
     let {statusCode=500 , message="Something went wrong!"} = err;
     res.status(statusCode).render("Error.ejs" , { message });
     // res.status(statusCode).send(message);
-});
-
-
-
-//! listening port
-app.listen(port , () =>{
-    console.log("app listening on port : ",port);
 });

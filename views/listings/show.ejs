@@ -5,7 +5,7 @@
     <div class="col-8 ">
 
         <h3>
-            Listing Details :
+            <%= listing.title %>
         </h3>
     </div>
 <br><br>
@@ -14,7 +14,6 @@
             <div class="card-body">
                 <p class="card-text">
                     <br>
-                    <b><%= listing.title %></b>
                     <br>&nbsp;
                     <i>"<%= listing.description %>"</i>
                      <br>
@@ -39,6 +38,32 @@
                 <button class="btn btn-dark ">
                     Delete
                 </button>
+            </form>
+        </div>
+
+
+
+        <!--! Review side -->
+
+
+
+        <div class="col-8 offset-3 mb-3">
+            <hr><br>
+            <h4>Leave a Review</h4>
+
+            <form method="POST" action="/listings/<%=listing.id%>/reviews">
+
+                <div class="mb-3 mt-3">
+                    <label for="rating" class="form-label"> Rating :  </label>
+                    &nbsp;&nbsp;
+                    <input type="range" min="1" max="10" id="rating" name="review[rating]" class="form-range">
+                </div>
+                <div class="mb-3 mt-3"> 
+                    <label for="comment" class="form-label"> Comment : </label>
+                    <textarea name="review[comment]" id="comment" cols="30" rows="5" class="form-control"></textarea>
+                    <br>
+                    <button class="btn btn-outline-dark">Submit</button>
+                </div>
             </form>
         </div>
         

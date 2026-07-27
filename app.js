@@ -10,8 +10,8 @@ const wrapAsync = require("./utils/wrapAsync.js");
 const ExpressError = require("./utils/ExpressError.js");
 const { listingSchema , reviewSchema} = require("./schema.js");
 const cookieParser = require("cookie-parser");
-const session = require("cookie-session");
-const flash = require("onnect-flash");
+const session = require("express-session");
+const flash = require("connect-flash");
 const port = 2009;
 
 
@@ -47,13 +47,38 @@ app.use(express.urlencoded({extended : true}));
 app.use(express.json());
 app.use(methodOverride("_method"));
 app.use(express.static(path.join(__dirname , "/public")));
-app.use(cookieParser());
+
+
+
+
+const sessionOptions = {
+    secret : "mySuerSecretcode",
+    resave : false,
+    saveUninitialized : true,
+    cookie : {
+        expires : Date.now() + 7 * 24 * 60 * 60 * 1000,
+        maxAge : 7 * 24 * 60 * 60 * 1000,
+        httpOnly : true,
+    }
+};
+
 
 
 
 //! ROOT
 app.get("/" , (req,res) =>{
     res.send("Hi! , I am root");
+});
+
+
+
+
+app.use(session(sessionOptions));
+app.use(flash());
+
+app.use((req, res, next) =>{
+    res.locals.success = req.flash("success");
+    next();
 });
 
 

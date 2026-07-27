@@ -3,7 +3,6 @@ const wrapAsync = require("../utils/wrapAsync.js");
 const { listingSchema } = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const Listing = require("../models/listing.js");
-
 const router = express.Router({ mergeParams: true});
 
 
@@ -33,16 +32,6 @@ router.get("/" , wrapAsync(async (req, res)=>{
 
 
 
-//! SHOW ROUTE
-router.get("/:id" ,wrapAsync(async (req, res) =>{
-    let {id} = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
-    res.render("./listings/show.ejs" , {listing})
-}));
-
-
-
-
 //! NEW/CREATE route
 router.get("/new" , (req, res) =>{
     res.render("./listings/newForm.ejs");
@@ -51,7 +40,18 @@ router.get("/new" , (req, res) =>{
 router.post("/" ,validateListing, wrapAsync(async(req, res, next) =>{
     const newListing = new Listing(req.body.listing);
     await newListing.save();
+    req.flash("success" , "New Listing Created");
     res.redirect("/listings");
+}));
+
+
+
+
+//! SHOW ROUTE
+router.get("/:id" ,wrapAsync(async (req, res) =>{
+    let {id} = req.params;
+    const listing = await Listing.findById(id).populate("reviews");
+    res.render("./listings/show.ejs" , {listing})
 }));
 
 

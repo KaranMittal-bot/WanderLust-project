@@ -1,3 +1,5 @@
+//* This is listings route file connected to app.js
+
 const express = require("express");
 const wrapAsync = require("../utils/wrapAsync.js");
 const { listingSchema } = require("../schema.js");

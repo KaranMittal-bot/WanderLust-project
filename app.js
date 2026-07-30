@@ -13,6 +13,9 @@ const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const flash = require("connect-flash");
 const port = 2009;
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
 
 
 
@@ -73,13 +76,36 @@ app.get("/" , (req,res) =>{
 
 
 
+//! Flash/Session/Passport MIDDLEWARES
 app.use(session(sessionOptions));
 app.use(flash());
+passport.initialize();
+passport.session();
+passport.use(new LocalStrategy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 
 app.use((req, res, next) =>{
     res.locals.success = req.flash("success");
     res.locals.error = req.flash("error");
     next();
+});
+
+
+
+
+app.get("/demouser" , async(req, res) =>{
+    let fakeUser = new User({
+        email : "karan@google.com",
+        username : "Karan",
+    });
+
+
+    let registeredUser = await User.register(fakeUser , "HelloWorld");
+
+    res.send(registeredUser);
 });
 
 

@@ -21,8 +21,9 @@ const User = require("./models/user.js");
 
 
 //* Routers
-const listings = require("./routes/listings.js")
-const reviews = require("./routes/reviews.js");
+const listingRouter = require("./routes/listingsRoute.js")
+const reviewRouter = require("./routes/reviewsRoute.js");
+const userRouter = require("./routes/userRoute.js");
 
 
 
@@ -110,9 +111,9 @@ app.get("/demouser" ,async(req, res) =>{
 
 
 //* ROUTERS
-app.use("/listings" , listings);
-app.use("/listings/:id/reviews" , reviews);
-
+app.use("/listings" , listingRouter);
+app.use("/listings/:id/reviews" , reviewRouter);
+app.use("/" , userRouter);
 
 
 

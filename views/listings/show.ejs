@@ -11,16 +11,25 @@
 <br><br>
         <div class="card col-6 offset-2 show-card listing-card">
             <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
+
             <div class="card-body">
                 <p class="card-text">
-                    <br>
-                    <br>&nbsp;
-                    <i>"<%= listing.description %>"</i>
-                     <br>
-                    <%= listing.location %>
-                    , <%= listing.country %>
-                    <br>&nbsp;<br>
-                     ₹<%= listing.price.toLocaleString("en-IN") %>
+                    <i>
+                        Owned By : <b><%= listing.owner.username %></b>
+                    </i>
+                </p>
+                <p class="card-text">
+                    <i>"<%= listing.description %>"</i> 
+                </p>
+                <p class="card-text">
+                     <%= listing.location %>
+                </p>
+                <p class="card-text">
+                    <%= listing.country %>
+                </p>
+                    
+                <p class="card-text">
+                    ₹<%= listing.price.toLocaleString("en-IN") %> 
                 </p>
             </div>
         </div>

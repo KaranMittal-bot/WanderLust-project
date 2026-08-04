@@ -37,7 +37,7 @@
         <br>
 
 
-        <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
+        
             <div class="btns">
                 <form action="/listings/<%=listing._id%>/edit" method="get">
                     <button class="btn btn-dark edit-btn">
@@ -51,7 +51,7 @@
                     </button>
                 </form>
             </div>
-        <% } %>
+     
 
 
         <!--! Review side -->

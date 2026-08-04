@@ -36,20 +36,22 @@
 
         <br>
 
-        <div class="btns">
-            <form action="/listings/<%=listing._id%>/edit" method="get">
-                <button class="btn btn-dark edit-btn">
-                    Edit
-                </button>
-            </form>
-&nbsp;&nbsp;&nbsp;&nbsp;
-            <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-                <button class="btn btn-dark ">
-                    Delete
-                </button>
-            </form>
-        </div>
 
+        <% if(currUser && currUser._id.equals(listing.owner._id)){ %>
+            <div class="btns">
+                <form action="/listings/<%=listing._id%>/edit" method="get">
+                    <button class="btn btn-dark edit-btn">
+                        Edit
+                    </button>
+                </form>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+                <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+                    <button class="btn btn-dark ">
+                        Delete
+                    </button>
+                </form>
+            </div>
+        <% } %>
 
 
         <!--! Review side -->

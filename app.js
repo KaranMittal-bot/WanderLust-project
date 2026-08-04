@@ -98,6 +98,7 @@ app.use((req, res, next) =>{
 
 
 
+
 // app.get("/demouser" ,async(req, res) =>{
 //     let fakeUser = new User({
 //         email : "karan@google.com",
@@ -111,7 +112,7 @@ app.use((req, res, next) =>{
 
 
 
-//* ROUTERS
+//* ROUTERS  
 app.use("/listings" , listingRouter);
 app.use("/listings/:id/reviews" , reviewRouter);
 app.use("/" , userRouter);

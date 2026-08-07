@@ -1,12 +1,12 @@
 const User = require("../models/user");
 
-
+// route to render signup form GET
 module.exports.renderSignupForm = (req, res) =>{
     res.render("./users/signup.ejs");
 }
 
 
-
+// signup route for users POST
 module.exports.Signup = async(req, res , next) =>{
    
     try{
@@ -30,14 +30,14 @@ module.exports.Signup = async(req, res , next) =>{
 
 
 
-
+// route to render login form on GET
 module.exports.renderLoginForm = (req, res) =>{
     res.render("./users/login.ejs");
 }
 
 
 
-
+// route to LOGIN success POST
 module.exports.Login = async(req, res) =>{
 
     let{username} = req.body;
@@ -48,7 +48,7 @@ module.exports.Login = async(req, res) =>{
 
 
 
-
+// route to Logout success POST
 module.exports.Logout = (req, res , next) =>{
     req.logout((err) =>{
         if(err){

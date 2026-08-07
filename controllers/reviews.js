@@ -4,7 +4,7 @@ const Review = require("../models/review");
 
 
 
-
+// route to add a review in Listing POST
 module.exports.createReview = async(req, res) =>{
 
      let listing = await Listing.findById(req.params.id);
@@ -25,6 +25,7 @@ module.exports.createReview = async(req, res) =>{
 
 
 
+// route to delete a review POST
 module.exports.deleteReview = async(req, res) =>{
 
     let {id , reviewId} = req.params;

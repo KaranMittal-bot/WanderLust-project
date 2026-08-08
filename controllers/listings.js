@@ -64,7 +64,7 @@ module.exports.editListing = async (req, res) =>{
 
 
 
-// route to update edited Listing [POST]
+// route to update edited Listing [POST] 
 module.exports.updateListing = async (req, res) =>{
     let {id} = req.params;
     await Listing.findByIdAndUpdate(id ,{... req.body.listing});

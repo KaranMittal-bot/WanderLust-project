@@ -16,6 +16,9 @@ const port = 2009;
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const multer = require("multer");
+const upload = multer({ dest : 'uploads/'});
+
 
 
 
@@ -95,18 +98,6 @@ app.use((req, res, next) =>{
     next();
 });
 
-
-
-
-// app.get("/demouser" ,async(req, res) =>{
-//     let fakeUser = new User({
-//         email : "karan@google.com",
-//         username : "Karan",
-//     });
-
-//     let registeredUser = await User.register(fakeUser , "HelloWorld");
-//     res.send(registeredUser);
-// });
 
 
 

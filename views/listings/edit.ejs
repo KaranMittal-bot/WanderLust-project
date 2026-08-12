@@ -8,7 +8,7 @@
         </h3>
 <br><br>
         <form method="POST" 
-        action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation">
+        action="/listings/<%= listing._id %>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
 
             <div class="mb-3">
                 <label for="NewTitle" class="form-label">
@@ -36,9 +36,9 @@
 <br>
             <div class="mb-3">
                 <label for="NewImage" class="form-label">
-                    image link :
+                    Upload New Image
                 </label>
-                <input type="text" name="listing[image][url]" value="<%=listing.image.url%>" class="form-control" required>
+                <input type="file" name="listing[image][url]" value="<%=listing.image.url%>" class="form-control" required>
 
                 <div class="invalid-feedback">
                     Add the image

@@ -61,7 +61,9 @@ module.exports.editListing = async (req, res) =>{
         return res.redirect("/listings");
     }
     
-    res.render("./listings/edit.ejs" , {listing});
+    let orgImageUrl = listing.image.url;
+    let OrgImageUrl = orgImageUrl.replace("/upload", "/upload/w_250")
+    res.render("./listings/edit.ejs" , {listing , OrgImageUrl});
 }
 
 
@@ -70,7 +72,15 @@ module.exports.editListing = async (req, res) =>{
 // route to update edited Listing [POST] 
 module.exports.updateListing = async (req, res) =>{
     let {id} = req.params;
-    await Listing.findByIdAndUpdate(id ,{... req.body.listing});
+    let listing = await Listing.findByIdAndUpdate(id ,{...req.body.listing});
+
+    if (typeof req.file !== "undefined"){
+        let url = req.file.path;
+        let filename = req.file.filename;
+        listing.image = {url, filename};
+        await listing.save();
+    }
+
     req.flash("success" , "Your Listing is Updated");
     res.redirect("/listings");
 }

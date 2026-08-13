@@ -21,7 +21,9 @@ router.route("/")
 )
 //! CREATE Route
 .post(
-    isLoggedIn ,upload.single("listing[image][url]"), validateListing, wrapAsync(listingController.createListing)
+    isLoggedIn ,
+    upload.single("listing[image][url]"), validateListing, 
+    wrapAsync(listingController.createListing)
 );
 
 
@@ -40,11 +42,16 @@ router.route("/:id")
 )
 //! UPDATE Route
 .put(
-    isLoggedIn , isOwner, validateListing , wrapAsync(listingController.updateListing)
+    isLoggedIn ,
+    isOwner, 
+    upload.single("listing[image][url]"), validateListing , 
+    wrapAsync(listingController.updateListing)
 )
 //! delete route
 .delete(
-    isLoggedIn ,isOwner, wrapAsync(listingController.deleteListing)
+    isLoggedIn ,
+    isOwner, 
+    wrapAsync(listingController.deleteListing)
 );
 
 

@@ -2,7 +2,7 @@ const Listing= require("../models/listing");
 
 
 
-// route to index main page [GET]
+//* route to index main page [GET]
 module.exports.index =async (req, res)=>{
     const allListings = await Listing.find({});
     res.render("./listings/index.ejs" , {allListings});
@@ -10,14 +10,14 @@ module.exports.index =async (req, res)=>{
 
 
 
-// route to renderNewForm for Listing creation [GET]
+//* route to renderNewForm for Listing creation [GET]
 module.exports.renderNewForm = (req, res) =>{
     res.render("./listings/newForm.ejs");
 }
 
 
 
-// route to show selected Listing details [POST]
+//* route to show selected Listing details [POST]
 module.exports.showListing = async (req, res) =>{
     let {id} = req.params;
 
@@ -36,7 +36,7 @@ module.exports.showListing = async (req, res) =>{
 
 
 
-// route to create New Listing [POST]
+//* route to create New Listing [POST]
 module.exports.createListing = async(req, res, next) =>{
     let url = req.file.path;
     let filename = req.file.filename;
@@ -51,7 +51,7 @@ module.exports.createListing = async(req, res, next) =>{
 
 
 
-// route to render edit Form existing Listing [GET]
+//* route to render edit Form of existing Listing [GET]
 module.exports.editListing = async (req, res) =>{
     let {id} = req.params;
     let listing = await Listing.findById(id);
@@ -69,7 +69,7 @@ module.exports.editListing = async (req, res) =>{
 
 
 
-// route to update edited Listing [POST] 
+//* route to update edited Listing [POST] 
 module.exports.updateListing = async (req, res) =>{
     let {id} = req.params;
     let listing = await Listing.findByIdAndUpdate(id ,{...req.body.listing});
@@ -88,7 +88,7 @@ module.exports.updateListing = async (req, res) =>{
 
 
 
-// route to destroy existing listing [POST]
+//* route to destroy existing listing [POST]
 module.exports.deleteListing = async (req, res) =>{
     let {id} = req.params;
     let deletedListing = await Listing.findByIdAndDelete(id);

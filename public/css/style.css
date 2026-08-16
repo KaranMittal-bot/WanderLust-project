@@ -153,3 +153,9 @@ footer{
     padding-left: 0;
     padding-right: 0;
 }
+
+#map{
+    height: 380px;
+    border-radius: 16px;
+    box-shadow: #222222;
+}

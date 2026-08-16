@@ -9,33 +9,42 @@
         </h3>
     </div>
 <br><br>
-        <div class="card col-6 offset-2 show-card listing-card">
-            <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
-        
-            <div class="card-body">
-                <p class="card-text">
-                    <i>
-                        Owned By : <b><%= listing.owner.username %></b>
-                    </i>
-                </p>
-                <p class="card-text">
-                    <i>"<%= listing.description %>"</i> 
-                </p>
-                <p class="card-text">
-                     <%= listing.location %>
-                </p>
-                <p class="card-text">
-                    <%= listing.country %>
-                </p>
-                    
-                <p class="card-text">
-                    ₹<%= listing.price.toLocaleString("en-IN") %> 
-                </p>
+        <div class="col-lg-7">
+            <div class="card show-card listing-card">
+                <img src="<%= listing.image.url %>" class="card-img-top show-img" alt="listing_image">
+            
+                <div class="card-body">
+                    <p class="card-text">
+                        <i>
+                            Owned By : <b><%= listing.owner.username %></b>
+                        </i>
+                    </p>
+                    <p class="card-text">
+                        <i>"<%= listing.description %>"</i> 
+                    </p>
+                    <p class="card-text">
+                        <%= listing.location %>
+                    </p>
+                    <p class="card-text">
+                        <%= listing.country %>
+                    </p>
+                        
+                    <p class="card-text">
+                        ₹<%= listing.price.toLocaleString("en-IN") %> 
+                    </p>
+                </div>
             </div>
         </div>
-
         <br>
 
+        <div class="col-lg-5">
+            <h4>
+                Where You'll be
+            </h4>
+            <div id="map">
+                
+            </div>
+        </div>
 
         <% if(currUser && listing.owner._id.equals(currUser._id)){ %>
             <div class="btns">
@@ -112,10 +121,6 @@
                                 <p class="card-text">
                                     <%= review.comment %>
                                 </p>
-                                <p class="card-text">
-                                     stars
-                                </p>
-                                
                             </div>
 
                             <form method="post" action="/listings/<%= listing._id %>/reviews/<%= review._id %>?_method=DELETE" class="mb-3">
@@ -130,3 +135,18 @@
     <% } %>
         
 </div>
+
+<script>
+    window.addEventListener('load', function () {
+        var map = L.map('map');
+        map.setView([30.3165, 78.0332], 12);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        var marker = L.marker([30.3165, 78.0332]).addTo(map);
+    });
+
+    
+</script>

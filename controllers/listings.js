@@ -1,5 +1,5 @@
 const Listing= require("../models/listing");
-
+const geocode = require("../utils/geocode");
 
 
 //* route to index main page [GET]
@@ -30,7 +30,10 @@ module.exports.showListing = async (req, res) =>{
         req.flash("error" , "Listing do no exist");
         return res.redirect("/listings");
     }
-    res.render("./listings/show.ejs" , {listing})
+    const data = await geocode(listing.location);
+    const coordinates = data.features[0].geometry.coordinates;
+
+    res.render("./listings/show.ejs" , {listing , coordinates})
 }
 
 

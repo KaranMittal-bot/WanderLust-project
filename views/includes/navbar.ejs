@@ -7,9 +7,140 @@
 
   .search-bar{
     border-radius: 50px;
-    padding : 0.5rem 3rem 0.5rem 3rem;
+    padding : 0.5rem 1.5rem;
     font-size: 1rem; 
   }
+
+  #addStay {
+    padding: 0.5rem 1rem;
+    border: 2px solid transparent;
+    border-radius: 20px;
+    transition: 0.35s;
+  }
+
+  #addStay:hover {
+      background-color: #fe424d;
+      border-color: #fe424d;
+      transition: 0.35s;
+  }
+
+  #addStay:hover i{
+    color: white;
+  }
+
+  .auth-link {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    padding: 0.5rem 0.9rem;
+    margin-left: 0.2rem;
+
+    border: 2px solid transparent;
+    border-radius: 20px;
+
+    color: black;
+    text-decoration: none;
+
+    transition: 
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+}
+
+/* Keep the emoji inside the button */
+.auth-emoji {
+    display: inline-block;
+    width: 0;
+    opacity: 0;
+    transform: translateX(-8px) scale(0.7);
+
+    transition:
+        width 0.25s ease,
+        opacity 0.2s ease,
+        transform 0.25s ease;
+}
+
+/* Hover background */
+.signup-link:hover {
+    background-color: #fff1f2;
+    border-color: #fe424d;
+    color: #fe424d;
+    transition: 0.2s;
+}
+
+.login-link:hover {
+    background-color: #f1f5ff;
+    border-color: #4f6cff;
+    color: #4f6cff;
+    transition: 0.2s;
+}
+
+/* Reveal emoji */
+.auth-link:hover .auth-emoji {
+    width: 1.2rem;
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
+
+.nav-action {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    padding: 0.5rem 0.9rem;
+    border: 2px solid transparent;
+    border-radius: 20px;
+
+    color: black;
+    text-decoration: none;
+
+    transition:
+        background-color 0.25s ease,
+        color 0.25s ease,
+        border-color 0.25s ease;
+
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.logout-link{
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.nav-emoji {
+    display: inline-block;
+    width: 0;
+    opacity: 0;
+    transform: translateX(-8px) scale(0.7);
+
+    transition:
+        width 0.25s ease,
+        opacity 0.2s ease,
+        transform 0.25s ease;
+}
+
+.nav-action:hover .nav-emoji {
+    width: 1.2rem;
+    opacity: 1;
+    transform: translateX(0) scale(1);
+}
+
+.explore-link:hover {
+    background-color: #fff8e1;
+    border-color: #f5c542;
+    color: #d49b00;
+}
+
+.logout-link:hover {
+    background-color: #eef2ff;
+    border-color: #c7d2fe;
+    color: #4338ca;
+    transition: 0.2s;
+}
 </style>
 
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
@@ -30,27 +161,43 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       
         <div class="navbar-nav">
-            <a class="nav-link" href="/listings">Explore</a>
+            <a class="nav-link nav-action explore-link" href="/listings">
+              <span class="nav-emoji">⭐</span>
+              <span>Explore</span>
+            </a>
         </div>
 
-        <div class="navbar-nav search-bar ms-auto">
-           <form class="d-flex" role="search">
-            <input class="form-control me-2 search-bar" type="search" placeholder="Search places, stays.." aria-label="Search">
-            <button class="btn btn-outline-danger btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search </button>
+        <div class="navbar-nav ms-auto">
+          <form class="d-flex" role="search">
+              <input
+                  class="form-control me-2 search-input"
+                  type="search"
+                  placeholder="Search places, stays.."
+                  aria-label="Search">
+              <button class="btn btn-outline-danger btn-search" type="submit">
+                  <i class="fa-solid fa-magnifying-glass"></i>
+                  Search
+              </button>
           </form>
         </div>
 
         <div class="navbar-nav ms-auto">
-          <a class="nav-link" id="addStay" href="/listings/new">Add a Stay</a>
+          <a class="nav-link" id="addStay" href="/listings/new"><i>Add Stay</i></a>
           <% if(!currUser) { %>
 
-            <a class="nav-link" href="/signup"><b>Sign up</b></a>
-            <a class="nav-link" href="/login"><b>Login</b></a>
+            <a class="nav-link auth-link signup-link" href="/signup">
+              <span class="auth-emoji">👋</span><span>Sign up</span></a>
+            <a class="nav-link auth-link login-link" href="/login">
+              <span class="auth-emoji">🔑</span>
+              <span>Login</span></a>
 
           <% } %>
             
             <% if(currUser) { %>
-              <a class="nav-link" href="/logout"><b>LogOut</b></a>
+              <a class="nav-link nav-action logout-link" href="/logout">
+                <span class="nav-emoji">🔒</span>
+                <span>Logout</span>
+              </a>
             <% } %>
             
         </div>

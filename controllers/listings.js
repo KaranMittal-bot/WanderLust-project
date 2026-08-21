@@ -17,6 +17,17 @@ module.exports.renderNewForm = (req, res) =>{
 
 
 
+
+module.exports.categoryListing =  async(req, res) => {
+    let {category} = req.params;
+    let allListings = await Listing.find({category});
+
+    res.render("listings/index.ejs" , {allListings});
+}
+
+
+
+
 //* route to show selected Listing details [POST]
 module.exports.showListing = async (req, res) =>{
     let {id} = req.params;

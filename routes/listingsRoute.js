@@ -35,6 +35,12 @@ router.get("/new" , isLoggedIn, listingController.renderNewForm);
 
 
 
+//! catergory route
+router.get("/category/:category" ,wrapAsync(listingController.categoryListing)
+);
+
+
+
 router.route("/:id")
 //! SHOW ROUTE
 .get(

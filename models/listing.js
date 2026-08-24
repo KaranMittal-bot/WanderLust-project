@@ -47,7 +47,7 @@ const listing = new Schema({
 
     category : {
         type : String,
-        enum : ["Rooms" , "Iconic Cities" , "Hill Stations" , "Beaches" , "Nature" , "Arctic" , "Swimming" , "Camping" , "Honeymoon" , "Luxury" , "Desert" , "Riverfront" , "Island"],
+        enum : ["Trending" , "Rooms" , "Iconic Cities" , "Hill Stations" , "Beaches" , "Nature" , "Arctic" , "Swimming" , "Camping" , "Honeymoon" , "Luxury" , "Desert" , "Riverfront" , "Island"],
     },
 });
 
@@ -56,7 +56,7 @@ const listing = new Schema({
 listing.post("findOneAndDelete" ,async(listing)=>{
     if(listing){
         await Review.deleteMany({_id : {$in : listing.reviews}});
-    }
+    } 
 });
 
 

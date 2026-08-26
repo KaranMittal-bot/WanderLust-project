@@ -35,6 +35,29 @@ router.get("/new" , isLoggedIn, listingController.renderNewForm);
 
 
 
+//! Search Route
+router.get("/search", async(req, res) => {
+    const {q} = req.query;
+    const searchTerms = q.trim().split(/\s+/).filter(Boolean);
+
+    const listings = await Listing.find({
+        $and: searchTerms.map(term => ({
+            $or: [
+                { title: { $regex: term, $options: "i" } },
+                { location: { $regex: term, $options: "i" } },
+                { country: { $regex: term, $options: "i" } },
+                { category: { $regex: term, $options: "i" } },
+                { description: { $regex: term, $options: "i" } }
+            ]
+        }))
+    });
+
+    res.render("listings/index.ejs" , { allListings : listings})
+});
+
+
+
+
 //! catergory route
 router.get("/category/:category" ,wrapAsync(listingController.categoryListing)
 );

@@ -36,9 +36,20 @@ router.get("/new" , isLoggedIn, listingController.renderNewForm);
 
 
 //! Search Route
-router.get("/search", async(req, res) => {
-    const {q} = req.query;
-    const searchTerms = q.trim().split(/\s+/).filter(Boolean);
+router.get("/search", async (req, res) => {
+
+    const { q } = req.query;
+
+    if (!q || !q.trim()) {
+        return res.redirect("/listings");
+    }
+
+    const searchTerms = q
+        .trim()
+        .toLowerCase()
+        .split(/\s+/)
+        .filter(Boolean);
+
 
     const listings = await Listing.find({
         $and: searchTerms.map(term => ({
@@ -52,7 +63,54 @@ router.get("/search", async(req, res) => {
         }))
     });
 
-    res.render("listings/index.ejs" , { allListings : listings})
+
+    const scoredListings = listings.map(listing => {
+
+        let score = 0;
+
+        for (const term of searchTerms) {
+
+            if (listing.title.match(new RegExp(term, "i"))) {
+                score += 10;
+            }
+
+            if (listing.category?.match(new RegExp(term, "i"))) {
+                score += 8;
+            }
+
+            if (listing.location.match(new RegExp(term, "i"))) {
+                score += 6;
+            }
+
+            if (listing.country.match(new RegExp(term, "i"))) {
+                score += 5;
+            }
+
+            if (listing.description?.match(new RegExp(term, "i"))) {
+                score += 3;
+            }
+        }
+
+        return {
+            listing,
+            score
+        };
+    });
+
+    scoredListings.sort((a, b) => b.score - a.score);
+
+    console.log(
+    scoredListings.map(item => ({
+        title: item.listing.title,
+        score: item.score
+    }))
+);
+
+    const rankedListings = scoredListings.map(item => item.listing);
+
+    res.render("listings/index.ejs", {
+        allListings: rankedListings
+    });
 });
 
 
